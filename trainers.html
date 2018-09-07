@@ -8,7 +8,6 @@
     <h1>Trainer Search</h1>
     <input type="text" placeholder="Enter Name" id = "search">
     <button = onclick="SearchQA()">Submit</button>
-    <script src ="trainer.js"></script>
     <script src="data.js"></script>
     <br/>
     <br/>
@@ -68,8 +67,11 @@
             if(add)
             {
                 createdTables++;
+                console.log(arrayStuff);
                 // Why does this stop the loop ???????????????
                 CreateTable(arrayStuff,"tableGroup" + createdTables);
+                console.log( data.members.length);
+                console.log(i);
             }
             add = false;
         }
@@ -81,13 +83,13 @@
 
         var table = document.createElement("table");
         table.id = tablename;
-        for(i =0; i < array.length;i++)
+        for(p =0; p < array.length;p++)
         {
             var row = document.createElement("tr");
             var td = document.createElement("td");
-            var text = document.createTextNode(names[i]);
+            var text = document.createTextNode(names[p]);
             var td1 = document.createElement("td");
-            var text1 = document.createTextNode(array[i]);
+            var text1 = document.createTextNode(array[p]);
             td.appendChild(text);
             td1.appendChild(text1);
             row.appendChild(td);
@@ -99,7 +101,7 @@
     }
 
 
-//CreateTable();
+
 </script>
 </body>
 </html>
