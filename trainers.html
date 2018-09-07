@@ -1,0 +1,105 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <style>
+    </style>
+</head>
+<body>
+    <h1>Trainer Search</h1>
+    <input type="text" placeholder="Enter Name" id = "search">
+    <button = onclick="SearchQA()">Submit</button>
+    <script src ="trainer.js"></script>
+    <script src="data.js"></script>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <h1>Search by skill</h1>
+    <input type="text" placeholder="Enter Skill" id = "searchSkill">
+    <button = onclick="SearchSkill()">Submit</button>
+<script>
+    var createdTables = 0;
+    function SearchQA()
+    {
+        var t = document.getElementById("newTable");
+        if(t != null)
+        {
+            document.body.removeChild(t);
+        }
+        var text = document.getElementById("search").value;
+        for(i =0; i < data.members.length;i++)
+        {
+            if(text == data.members[i].name)
+            {
+                var arrayStuff = [data.members[i].name,data.members[i].age,data.members[i].secretIdentity];
+                for(j =0; j < data.members[i].skills.length;j++)
+                {
+                    arrayStuff.push(data.members[i].skills[j]);
+                }
+                CreateTable(arrayStuff,"newTable");
+            }
+            
+        }
+    }
+
+    function SearchSkill()
+    {
+        var text = document.getElementById("searchSkill").value;
+        var add = false;
+
+        for(i =1; i <= createdTables;i++)
+        {
+            var t = document.getElementById("tableGroup" + i);
+            document.body.removeChild(t);
+        }
+        createdTables = 0;
+
+        for(i =0; i < data.members.length;i++)
+        {
+            var arrayStuff = [data.members[i].name,data.members[i].age,data.members[i].secretIdentity];
+            for(j =0; j < data.members[i].skills.length;j++)
+            {
+                arrayStuff.push(data.members[i].skills[j]);
+                if(text == data.members[i].skills[j])
+                {
+                   add = true;
+                }
+            }
+            if(add)
+            {
+                createdTables++;
+                // Why does this stop the loop ???????????????
+                CreateTable(arrayStuff,"tableGroup" + createdTables);
+            }
+            add = false;
+        }
+    }
+
+    function CreateTable(array,tablename)
+    {
+        var names = ["Name: ","Age: ","Secret Identity: ","Skills 1: ","Skills 2: ","Skills 3: ","Skills 4: "];
+
+        var table = document.createElement("table");
+        table.id = tablename;
+        for(i =0; i < array.length;i++)
+        {
+            var row = document.createElement("tr");
+            var td = document.createElement("td");
+            var text = document.createTextNode(names[i]);
+            var td1 = document.createElement("td");
+            var text1 = document.createTextNode(array[i]);
+            td.appendChild(text);
+            td1.appendChild(text1);
+            row.appendChild(td);
+            row.appendChild(td1);
+            table.appendChild(row);
+        }
+        
+        document.body.appendChild(table);
+    }
+
+
+//CreateTable();
+</script>
+</body>
+</html>
